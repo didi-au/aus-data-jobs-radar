@@ -1,0 +1,168 @@
+{
+  "id": "92983051",
+  "jobLink": "https://au.seek.com/job/92983051",
+  "applyLink": "https://au.seek.com/job/92983051/apply",
+  "isExternalApply": true,
+  "roleId": "database-administrator",
+  "title": "Database Administrator",
+  "salary": "Daily Rate on offer",
+  "content": {
+    "bulletPoints": [
+      "6-month contract with strong extension or permanent opportunity",
+      "Hybrid working model | Hands-on exposure to AWS & enterprise databases",
+      "Great opportunity for junior-mid DBA to grow within a high-performing tech team"
+    ],
+    "jobHook": "6-month contract DBA role | Hybrid work | Develop skills across AWS & on-prem databases | Strong extension and perm opportunities",
+    "unEditedContent": "<strong>Company Overview</strong> <br>Our client is a well-established organisation with a strong technology focus and a reputation for delivering reliable, high-performing platforms that support critical business operations. Operating across modern cloud and legacy environments, they place a strong emphasis on collaboration, continuous improvement, and developing technical talent.<br> <br> <strong>Role Overview</strong> This opportunity is suited to a junior to mid-level Database Administrator looking to deepen their experience across both cloud and on-premise environments. You will work closely with senior DBAs, developers, and infrastructure teams to support, maintain, and optimise databases supporting business-critical applications.<br><br> This is a <strong>6-month contract opportunity with strong potential for extension or transition into a permanent role</strong>, offering hands-on exposure to modern database technologies and best practices.<br> \u00a0<br><strong>Key Responsibilities:</strong><br> <ul> <li>Support administration, maintenance, and optimisation of databases across development, test, and production environments</li> <li>Assist with database design, object creation (tables, indexes), and performance tuning activities</li> <li>Monitor system performance, troubleshoot issues, and ensure data integrity and availability</li> <li>Contribute to backup, recovery, and data migration processes across cloud and on-prem platforms</li> <li>Collaborate with developers and senior DBAs to deliver robust, scalable database solutions</li> <li>Maintain documentation, standards, and support continuous improvement initiatives</li> </ul> \u00a0 <strong>Skills & Experience</strong> <br> <ul> <li>Proven experience in database administration or related technical roles</li> <li>Exposure to database platforms such as <strong>Oracle, SQL Server, PostgreSQL, or similar</strong></li> <li>Basic understanding of <strong>cloud database environments (AWS, Azure, or similar)</strong></li> <li>Experience with database monitoring, performance tuning, and optimisation fundamentals</li> <li>Familiarity with <strong>backup and recovery processes</strong></li> <li>Understanding of <strong>data modelling concepts and database design principles</strong></li> <li>Exposure to <strong>Linux/Unix scripting or automation</strong></li> <li>Strong troubleshooting and problem-solving skills</li> <li>Ability to work collaboratively within a team environment</li> </ul> <strong>What\u2019s on Offer</strong> People enjoy working in this team because of the <strong>supportive learning environment, access to modern technologies, and clear career pathways</strong>.<br> <ul> <li>Hybrid working model (flexibility between home and office)</li> <li>Opportunity to gain hands-on experience across cloud and enterprise platforms</li> <li>Work alongside experienced senior DBAs and technical specialists</li> <li>Strong potential for contract extension or permanent placement</li> </ul> Click on the\u00a0<strong>APPLY</strong>\u00a0button or contact\u00a0<strong>Angela Tan-Jenkin\u00a0</strong>on\u00a0<strong><a href=\"mailto:angela.jenkin@profusiongroup.com\">angela.jenkin@profusiongroup.com</a>\u00a0<br></strong><br><em>We are committed to providing a supportive culture and positively contributing towards creating diverse and inclusive workplaces for our candidates & clients. We invite candidates of all ages, genders, sexual orientation, cultural backgrounds, people with disability, neurodiverse individuals, and Indigenous Australians to apply.</em>",
+    "sections": [
+      "Company Overview",
+      "Our client is a well-established organisation with a strong technology focus and a reputation for delivering reliable, high-performing platforms that support critical business operations. Operating across modern cloud and legacy environments, they place a strong emphasis on collaboration, continuous improvement, and developing technical talent.",
+      "Role Overview",
+      "This opportunity is suited to a junior to mid-level Database Administrator looking to deepen their experience across both cloud and on-premise environments. You will work closely with senior DBAs, developers, and infrastructure teams to support, maintain, and optimise databases supporting business-critical applications.",
+      "This is a",
+      "6-month contract opportunity with strong potential for extension or transition into a permanent role",
+      ", offering hands-on exposure to modern database technologies and best practices.",
+      "Key Responsibilities:",
+      "Support administration, maintenance, and optimisation of databases across development, test, and production environments",
+      "Assist with database design, object creation (tables, indexes), and performance tuning activities",
+      "Monitor system performance, troubleshoot issues, and ensure data integrity and availability",
+      "Contribute to backup, recovery, and data migration processes across cloud and on-prem platforms",
+      "Collaborate with developers and senior DBAs to deliver robust, scalable database solutions",
+      "Maintain documentation, standards, and support continuous improvement initiatives",
+      "Skills & Experience",
+      "Proven experience in database administration or related technical roles",
+      "Exposure to database platforms such as",
+      "Oracle, SQL Server, PostgreSQL, or similar",
+      "Basic understanding of",
+      "cloud database environments (AWS, Azure, or similar)",
+      "Experience with database monitoring, performance tuning, and optimisation fundamentals",
+      "Familiarity with",
+      "backup and recovery processes",
+      "Understanding of",
+      "data modelling concepts and database design principles",
+      "Exposure to",
+      "Linux/Unix scripting or automation",
+      "Strong troubleshooting and problem-solving skills",
+      "Ability to work collaboratively within a team environment",
+      "What\u2019s on Offer",
+      "People enjoy working in this team because of the",
+      "supportive learning environment, access to modern technologies, and clear career pathways",
+      ".",
+      "Hybrid working model (flexibility between home and office)",
+      "Opportunity to gain hands-on experience across cloud and enterprise platforms",
+      "Work alongside experienced senior DBAs and technical specialists",
+      "Strong potential for contract extension or permanent placement",
+      "Click on the",
+      "APPLY",
+      "button or contact",
+      "Angela Tan-Jenkin",
+      "on",
+      "angela.jenkin@profusiongroup.com",
+      "We are committed to providing a supportive culture and positively contributing towards creating diverse and inclusive workplaces for our candidates & clients. We invite candidates of all ages, genders, sexual orientation, cultural backgrounds, people with disability, neurodiverse individuals, and Indigenous Australians to apply."
+    ]
+  },
+  "numApplicants": null,
+  "resumePercentage": null,
+  "coverLetterPercentage": null,
+  "workArrangements": "Hybrid",
+  "phoneNumbers": [],
+  "emails": [
+    "angela.jenkin@profusiongroup.com"
+  ],
+  "workTypes": "Contract/Temp",
+  "classificationInfo": {
+    "classification": "Information & Communication Technology",
+    "classificationId": "6281",
+    "subClassification": "Database Development & Administration",
+    "subClassificationId": "6286"
+  },
+  "joblocationInfo": {
+    "area": "CBD & Inner Suburbs",
+    "displayLocation": "Melbourne VIC",
+    "location": "Melbourne",
+    "locationIds": [
+      "18578"
+    ],
+    "country": "Australia",
+    "countryCode": "AU",
+    "suburb": "Melbourne"
+  },
+  "advertiser": {
+    "logo": null,
+    "id": "20291172",
+    "name": "Profusion PAC Pty Ltd",
+    "isVerified": true,
+    "isPrivate": false,
+    "registrationDate": "2007-06-25T08:34:17.000Z"
+  },
+  "companyProfile": {
+    "id": null,
+    "name": null,
+    "companyNameSlug": null,
+    "overview": null,
+    "industry": null,
+    "size": null,
+    "profile": null,
+    "website": null,
+    "numberOfReviews": null,
+    "rating": null,
+    "perksAndBenefits": null
+  },
+  "companyOpenJobs": "https://au.seek.com/Profusion-Group-jobs/at-this-company",
+  "companyTags": [],
+  "employerQuestions": [],
+  "employerVideo": null,
+  "listedAt": "2026-06-27T02:51:10.335Z",
+  "expiresAtUtc": "2026-07-27T02:51:00.000Z",
+  "isVerified": true,
+  "hasRoleRequirements": false,
+  "recruiterProfile": {
+    "name": "Angela Jenkin",
+    "slug": "angela-jenkin",
+    "profileLink": "https://www.seek.com.au/recruiters/people/angela-jenkin",
+    "rating": 5,
+    "reviewCount": 6,
+    "contactNumber": null,
+    "agencyWebsite": "http://profusiongroup.com",
+    "specialisations": [],
+    "agencyName": "Profusion Group",
+    "location": {
+      "country": "Australia",
+      "postcode": "3000",
+      "state": "VIC",
+      "city": "Melbourne"
+    },
+    "placement_count": 0,
+    "placements": [],
+    "jobs": [
+      {
+        "id": "967182",
+        "job_id": 92983051,
+        "title": "Database Administrator",
+        "description": "6-month contract DBA role | Hybrid work | Develop skills across AWS & on-prem databases | Strong extension and perm opportunities",
+        "location": "Melbourne VIC",
+        "url": "https://au.seek.com/job/92983051?tracking=ILC-RecruiterProfile",
+        "created_at": "2026-06-27T02:51:10.000+00:00"
+      },
+      {
+        "id": "967181",
+        "job_id": 92982937,
+        "title": "Incident & Change Manager",
+        "description": "Lead major incident resolution and change enablement for a global capital markets leader | 12 mths Contract",
+        "location": "Melbourne VIC",
+        "url": "https://au.seek.com/job/92982937?tracking=ILC-RecruiterProfile",
+        "created_at": "2026-06-27T02:28:09.000+00:00"
+      },
+      {
+        "id": "965507",
+        "job_id": 92903509,
+        "title": "Senior Data Analyst - Investment Sector Specialist",
+        "description": "Drive smarter decisions through data. Build dashboards, deliver insights, and shape analytics strategy in investments | 12 mths Contract | Melb+Hybrid",
+        "location": "Melbourne VIC",
+        "url": "https://au.seek.com/job/92903509?tracking=ILC-RecruiterProfile",
+        "created_at": "2026-06-23T23:57:47.000+00:00"
+      }
+    ]
+  },
+  "recruiterSpecialisations": []
+}

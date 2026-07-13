@@ -6,3 +6,4 @@ __pycache__/
 *.duckdb
 .DS_Store
 .venv/
+docs/GAMEPLAN.md
