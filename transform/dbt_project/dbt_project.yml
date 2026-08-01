@@ -1,0 +1,11 @@
+name: aus_data_jobs_radar
+version: "1.0.0"
+profile: radar
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+
+models:
+  aus_data_jobs_radar:
+    +materialized: table

@@ -1,6 +1,6 @@
 import duckdb
 import pandas as pd
-from parsers import parse_salary, strip_html, standardise_location
+from parsers import parse_salary, standardise_location, strip_html
 
 con = duckdb.connect("warehouse.duckdb")
 con.execute("CREATE SCHEMA IF NOT EXISTS silver")

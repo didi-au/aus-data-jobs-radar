@@ -1,8 +1,9 @@
-import duckdb
 import json
+
+import duckdb
 import pandas as pd
-from pydantic import ValidationError
 from contracts import JobAd
+from pydantic import ValidationError
 
 valid_records = []
 invalid_records = []

@@ -7,3 +7,8 @@ __pycache__/
 .DS_Store
 .venv/
 docs/GAMEPLAN.md
+
+# dbt build artifacts
+transform/dbt_project/target/
+transform/dbt_project/logs/
+transform/dbt_project/dbt_packages/

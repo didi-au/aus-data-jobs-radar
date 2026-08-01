@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: dim_company
+    description: One row per advertiser.
+    columns:
+      - name: company_key
+        tests: [unique, not_null]
+      - name: company_name
+        tests: [unique, not_null]
+
+  - name: dim_location
+    description: One row per city/state pair, suburbs collapsed to parent city.
+    columns:
+      - name: location_key
+        tests: [unique, not_null]
+      - name: city
+        tests: [not_null]
+      - name: state
+        tests:
+          - accepted_values:
+              values: ["NSW", "VIC", "QLD", "WA", "SA", "ACT", "TAS", "NT"]
+
+  - name: dim_date
+    columns:
+      - name: date_key
+        tests: [unique, not_null]
+      - name: full_date
+        tests: [unique, not_null]
+
+  - name: dim_skill
+    columns:
+      - name: skill_key
+        tests: [unique, not_null]
+      - name: skill_name
+        tests: [unique, not_null]
+
+  - name: bridge_job_skill
+    description: Many-to-many link between postings and skills.
+    columns:
+      - name: job_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fact_job_posting')
+              field: job_id
+      - name: skill_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_skill')
+              field: skill_key
+
+  - name: fact_job_posting
+    description: "Grain: one row per job posting."
+    columns:
+      - name: job_id
+        tests: [unique, not_null]
+      - name: title
+        tests: [not_null]
+      - name: salary_period
+        tests:
+          - accepted_values:
+              values: ["annual", "hourly", "daily"]
+      - name: seniority
+        tests:
+          - accepted_values:
+              values: ["junior", "mid", "senior", "unspecified"]
+      - name: company_key
+        tests:
+          - relationships:
+              to: ref('dim_company')
+              field: company_key
+      - name: location_key
+        tests:
+          - relationships:
+              to: ref('dim_location')
+              field: location_key

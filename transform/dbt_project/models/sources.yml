@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: silver
+    schema: silver
+    description: Cleaned, deduplicated job ads produced by transform/build_silver.py
+    tables:
+      - name: job_ads
+      - name: job_clusters
+        description: Semantic-dedup cluster assignments from transform/semantic_dedup.py

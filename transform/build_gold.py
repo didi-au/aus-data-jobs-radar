@@ -5,6 +5,7 @@ Dimensions (company, location, date, skill) provide descriptive context.
 Skills are attached via keyword matching for now (upgraded to LLM in Session 8).
 """
 import re
+
 import duckdb
 import pandas as pd
 

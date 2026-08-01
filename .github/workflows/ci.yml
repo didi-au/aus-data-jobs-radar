@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install duckdb pandas pydantic pytest ruff dbt-duckdb
+
+      # Gate 1 — lint. Style problems fail the build before anything runs.
+      - name: Lint (ruff)
+        run: ruff check .
+
+      # Gate 2 — unit tests for the parsers (salary, HTML, location).
+      - name: Unit tests (pytest)
+        run: pytest tests/ -v
+
+      # Gate 3 — the pipeline must rebuild from raw JSON with no warehouse
+      # present. This is the idempotency guarantee, enforced on every push.
+      - name: Rebuild pipeline from scratch
+        run: |
+          rm -f warehouse.duckdb
+          python ingest/load_bronze.py
+          PYTHONPATH=transform python transform/build_silver.py
+
+      # Gate 4 — dbt builds the star schema AND runs its data tests
+      # (not_null, unique, accepted_values, relationships, salary_min <= max).
+      - name: dbt build (models + data tests)
+        run: dbt build --project-dir transform/dbt_project --profiles-dir transform/dbt_project
+
+      # Gate 5 — extraction accuracy must not regress.
+      # Reads the committed eval report; fails if any metric drops below floor.
+      - name: Extraction accuracy gate
+        run: python scripts/check_eval_thresholds.py

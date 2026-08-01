@@ -9,7 +9,7 @@ from pathlib import Path
 # make transform/ importable regardless of where pytest is run from
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "transform"))
 
-from parsers import parse_salary, strip_html, standardise_location
+from parsers import parse_salary, standardise_location, strip_html
 
 
 # ---- salary: clean annual ranges ----

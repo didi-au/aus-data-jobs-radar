@@ -1,0 +1,34 @@
+skill_key,skill_name,pattern
+1,Python,python
+2,SQL,sql
+3,Java,java
+4,Scala,scala
+5,AWS,aws
+6,Azure,azure
+7,GCP,gcp|google cloud
+8,Databricks,databricks
+9,Snowflake,snowflake
+10,dbt,dbt
+11,Airflow,airflow
+12,Dagster,dagster
+13,Spark,spark
+14,Kafka,kafka
+15,Hadoop,hadoop
+16,Power BI,power\s*bi
+17,Tableau,tableau
+18,Looker,looker
+19,Excel,excel
+20,pandas,pandas
+21,Terraform,terraform
+22,Docker,docker
+23,Kubernetes,kubernetes
+24,ETL,etl
+25,BigQuery,bigquery
+26,Redshift,redshift
+27,PostgreSQL,postgresql|postgres
+28,MySQL,mysql
+29,MongoDB,mongodb
+30,Fabric,microsoft fabric
+31,Synapse,synapse
+32,SAS,sas
+33,NoSQL,nosql

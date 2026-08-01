@@ -1,0 +1,8 @@
+radar:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Path is relative to the working directory; run dbt from the repo root.
+      path: warehouse.duckdb
+      schema: gold

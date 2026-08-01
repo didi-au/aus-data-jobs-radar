@@ -1,0 +1,34 @@
+{
+  "golden_set_size": 30,
+  "matched": 14,
+  "missing_from_extraction": [
+    "92303921",
+    "92895425",
+    "92908553",
+    "92917095",
+    "92931321",
+    "92935600",
+    "92938409",
+    "92940882",
+    "92943040",
+    "92945976",
+    "92951627",
+    "92955594",
+    "92960020",
+    "92963090",
+    "92968166",
+    "92969751"
+  ],
+  "skills": {
+    "precision": 0.786,
+    "recall": 0.846,
+    "f1": 0.815,
+    "true_positives": 11,
+    "false_positives": 3,
+    "false_negatives": 2
+  },
+  "seniority_accuracy": 0.571,
+  "visa_accuracy": 1.0,
+  "visa_note": "golden sample has 0 positive visa examples; measures false-positive rate only",
+  "years_accuracy": 0.929
+}
