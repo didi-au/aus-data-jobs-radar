@@ -12,3 +12,4 @@ docs/GAMEPLAN.md
 transform/dbt_project/target/
 transform/dbt_project/logs/
 transform/dbt_project/dbt_packages/
+serve/drafts/

@@ -31,6 +31,8 @@ ignore = [
 "transform/parsers.py" = ["RUF001"]
 # Same reason: these tests assert against verbatim real-world salary strings.
 "tests/test_parsers.py" = ["RUF001"]
+# The en-dash is intentional typography in the generated post copy.
+"serve/linkedin_post.py" = ["RUF001"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

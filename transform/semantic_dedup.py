@@ -21,8 +21,12 @@ from google import genai
 
 EMBED_MODEL = "gemini-embedding-001"
 EMBED_DIM = 768
+# The free-tier embedding quota is 100 *items* per minute, not 100 requests —
+# batching 20 texts per call consumes 20 units of quota, not 1. Pacing is
+# therefore derived from items/minute, not calls/minute.
 BATCH_SIZE = 20
-SECONDS_BETWEEN_CALLS = 2.0
+ITEMS_PER_MINUTE = 90  # 100 is the hard cap; leave headroom
+SECONDS_BETWEEN_CALLS = 60.0 * BATCH_SIZE / ITEMS_PER_MINUTE
 TEXT_LIMIT = 1200
 THRESHOLD = 0.90  # see ADR-001
 CACHE_PATH = Path("data/embeddings.jsonl")
@@ -46,20 +50,31 @@ def embed_missing(client: genai.Client, jobs: list[tuple], cache: dict) -> dict:
     for i in range(0, len(pending), BATCH_SIZE):
         batch = pending[i : i + BATCH_SIZE]
         texts = [f"{title}\n{descr[:TEXT_LIMIT]}" for _, title, descr in batch]
-        try:
-            resp = client.models.embed_content(
-                model=EMBED_MODEL,
-                contents=texts,
-                config={"output_dimensionality": EMBED_DIM},
-            )
-            with open(CACHE_PATH, "a") as f:
-                for (job_id, _, _), emb in zip(batch, resp.embeddings, strict=False):
-                    vec = list(emb.values)
-                    cache[job_id] = vec
-                    f.write(json.dumps({"job_id": job_id, "embedding": vec}) + "\n")
-            print(f"  batch {i // BATCH_SIZE + 1}: ok")
-        except Exception as e:
-            print(f"  batch {i // BATCH_SIZE + 1}: FAILED {type(e).__name__}: {e}")
+        n = i // BATCH_SIZE + 1
+
+        # Retry on 429: the quota is per-minute, so waiting genuinely clears it.
+        for attempt in range(4):
+            try:
+                resp = client.models.embed_content(
+                    model=EMBED_MODEL,
+                    contents=texts,
+                    config={"output_dimensionality": EMBED_DIM},
+                )
+                with open(CACHE_PATH, "a") as f:
+                    for (job_id, _, _), emb in zip(batch, resp.embeddings, strict=True):
+                        vec = list(emb.values)
+                        cache[job_id] = vec
+                        f.write(json.dumps({"job_id": job_id, "embedding": vec}) + "\n")
+                print(f"  batch {n}: ok ({len(cache)} cached)")
+                break
+            except Exception as e:
+                if "429" in str(e) and attempt < 3:
+                    print(f"  batch {n}: rate limited, waiting 60s (attempt {attempt + 1}/3)")
+                    time.sleep(60)
+                    continue
+                print(f"  batch {n}: FAILED {type(e).__name__}")
+                break
+
         time.sleep(SECONDS_BETWEEN_CALLS)
     return cache
 
@@ -103,14 +118,21 @@ def cluster(job_ids: list[str], matrix: np.ndarray, threshold: float) -> dict[st
 def main() -> None:
     load_dotenv()
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    con = duckdb.connect("warehouse.duckdb")
 
+    # Read the job list, then CLOSE the connection before embedding.
+    # DuckDB allows a single writer; holding the lock through a multi-minute
+    # API loop would block every other pipeline step for no reason.
+    con = duckdb.connect("warehouse.duckdb", read_only=True)
     jobs = con.sql("""
         SELECT id, coalesce(title, ''), coalesce(description_clean, '')
         FROM silver.job_ads
     """).fetchall()
+    con.close()
 
     cache = embed_missing(client, jobs, load_cache())
+
+    # Reopen for writing only once there is something to write.
+    con = duckdb.connect("warehouse.duckdb")
 
     job_ids = [j[0] for j in jobs if j[0] in cache]
     matrix = np.array([cache[jid] for jid in job_ids], dtype=np.float32)
