@@ -30,7 +30,11 @@ jobs:
 
       # Gate 3 — the pipeline must rebuild from raw JSON with no warehouse
       # present. This is the idempotency guarantee, enforced on every push.
+      # data/ is gitignored, so CI runs against a small committed fixture
+      # (24 ads spanning the real salary/location variety).
       - name: Rebuild pipeline from scratch
+        env:
+          SEED_DIR: tests/fixtures/seed
         run: |
           rm -f warehouse.duckdb
           python ingest/load_bronze.py

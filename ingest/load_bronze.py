@@ -1,15 +1,28 @@
+"""
+Bronze layer — land raw job ads as-is, with a Pydantic validation gate.
+
+Rows that fail validation go to bronze.dead_letter with the reason attached,
+never silently dropped.
+
+SEED_DIR is configurable because data/ is gitignored (it is large and
+reproducible), so CI has no seed files. CI points this at a small committed
+fixture instead, which lets the rebuild gate actually run.
+"""
 import json
+import os
 
 import duckdb
 import pandas as pd
 from contracts import JobAd
 from pydantic import ValidationError
 
+SEED_DIR = os.environ.get("SEED_DIR", "data/raw/seed")
+
 valid_records = []
 invalid_records = []
 
 for filename in ["analyst.json", "engineer.json", "mining.json"]:
-    with open(f"data/raw/seed/{filename}") as f:
+    with open(f"{SEED_DIR}/{filename}") as f:
         records = json.load(f)
 
     for record in records:
