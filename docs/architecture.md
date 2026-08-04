@@ -83,15 +83,15 @@ Weekly schedule: Mondays 06:00 (`0 6 * * 1`).
 
 ## Design decisions
 
-| Decision | Why |
+| Decision | Rationale |
 |---|---|
-| DuckDB, not Postgres/Spark | Weekly batch of ~500 rows. An embedded, columnar engine matches the workload; a server would be operational overhead for nothing. |
-| Medallion layers | Bronze stays untouched so a bug in cleaning logic is always recoverable by re-running from source rather than re-scraping. |
-| Star schema, not one flat table | "Top 15 skills for DE roles" is one join away instead of unanswerable. Dimensions keep company/location text stored once. |
-| Bridge table for skills | A job has many skills and a skill has many jobs. Neither a column nor a foreign key can express that. |
-| Surrogate integer keys | Company names are messy and mutable; a stable integer is the safe join target. |
-| `CREATE OR REPLACE`, not `INSERT` | Makes every stage idempotent by construction, not by convention. |
-| Hourly/daily salaries kept raw | Annualising requires assuming full-time hours the ad never states. A `salary_period` label is honest; a guessed number is silent corruption. |
-| Dead-letter, not drop | A silently dropped row is invisible data loss. Quarantine keeps the row *and* the reason, so bad data is countable and recoverable. |
-| Cache LLM calls by content hash | Reruns cost $0 and are deterministic. |
-| Draft-only LinkedIn bot | A cron job should not have publish rights to a personal brand. |
+| DuckDB rather than Postgres or Spark | Workload is a weekly batch of ~500 rows. An embedded, columnar engine matches the scale; a database server would add operational overhead with no benefit at this volume. |
+| Medallion layering | Bronze is never modified, so a defect in cleaning logic is recoverable by rerunning from source rather than re-scraping. |
+| Star schema rather than a single flat table | Reduces multi-way analytical queries (e.g. top skills by role) to a single join. Dimension tables store company and location text once rather than repeating it per fact row. |
+| Bridge table for skills | A posting has multiple skills and a skill appears across multiple postings — a many-to-many relationship that neither a column nor a single foreign key can represent. |
+| Surrogate integer keys | Company names are inconsistent and can change; a stable generated key is a safer join target. |
+| `CREATE OR REPLACE` rather than `INSERT` | Makes each pipeline stage idempotent by construction rather than by convention. |
+| Hourly and daily salaries stored raw, not annualised | Annualising requires assuming full-time hours the posting does not state. Storing the raw figure with a `salary_period` label avoids introducing an unstated assumption into the data. |
+| Dead-letter table instead of dropping invalid rows | A silently dropped row is undetectable data loss. Quarantining preserves both the row and the validation failure reason. |
+| LLM calls cached by content hash | Reruns are free and deterministic. |
+| LinkedIn generator produces a draft only | Automated publishing to a personal account was judged out of scope for a scheduled job. |
