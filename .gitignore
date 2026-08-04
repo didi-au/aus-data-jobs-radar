@@ -13,3 +13,7 @@ transform/dbt_project/target/
 transform/dbt_project/logs/
 transform/dbt_project/dbt_packages/
 serve/drafts/
+
+# Dagster runtime artifacts
+.tmp_dagster_home_*/
+DAGSTER_HOME/
