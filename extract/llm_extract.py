@@ -30,6 +30,10 @@ from pydantic import BaseModel
 # deliberately: a far more generous free tier, and pinning also means a new
 # model release can never silently change extraction behaviour mid-project.
 MODEL = "gemini-2.0-flash"
+# Bump whenever PROMPT changes. The cache key includes this, so a prompt edit
+# invalidates old entries instead of leaving the dataset half-extracted under
+# the previous prompt — which would silently corrupt the accuracy measurement.
+PROMPT_VERSION = 2
 BATCH_SIZE = 25
 SECONDS_BETWEEN_CALLS = 5.0  # ~12 requests/minute, inside the 15 RPM limit
 DESCRIPTION_LIMIT = 1500     # chars; enough signal, keeps tokens low
@@ -47,13 +51,37 @@ class JobExtraction(BaseModel):
 
 
 PROMPT = """You are extracting structured data from Australian job advertisements.
+Extract only what the ad actually states. Do not infer, guess, or fill gaps.
+
 For EACH job ad below, return one JSON object with:
+
 - job_id: copied exactly from the ad header
-- skills: technical skills/tools explicitly mentioned (canonical names, e.g. "Python", "Power BI"); [] if none
-- seniority: "junior", "mid", "senior", or "unspecified" — judge from title and requirements
-- visa_friendly: true ONLY if the ad explicitly welcomes visa holders or offers sponsorship
-- visa_evidence: the exact phrase that proves visa_friendly, else null
-- years_experience_required: minimum years explicitly required, else null
+
+- skills: technical skills, tools and platforms explicitly named in the ad
+  (canonical names, e.g. "Python", "Power BI", "SQL"). Do NOT include soft
+  skills, methodologies, or job functions. [] if none are named.
+
+- seniority: assign ONLY on explicit evidence, otherwise "unspecified".
+    "junior"  - title contains Junior/Graduate/Entry/Trainee/Associate, OR the
+                ad states 0-2 years experience, OR it is described as an
+                entry-level or graduate opportunity.
+    "senior"  - title contains Senior/Lead/Principal/Head/Manager/Director, OR
+                the ad states 7+ years experience.
+    "mid"     - title contains Mid-level, OR the ad states 3-6 years experience.
+    "unspecified" - ANY other case. This includes plain titles with no seniority
+                word and no stated years (e.g. "Data Analyst", "Procurement
+                Officer", "Business Analyst"). A plain title is NOT evidence of
+                mid-level. When in doubt, choose "unspecified" — a wrong guess
+                is worse than an honest blank.
+
+- visa_friendly: true ONLY if the ad explicitly mentions visa sponsorship or
+  explicitly welcomes visa holders. Australian-citizenship or security-clearance
+  requirements are NOT visa friendly. Default false.
+
+- visa_evidence: the exact phrase proving visa_friendly, else null
+
+- years_experience_required: the minimum number of years explicitly stated
+  (e.g. "3+ years" -> 3, "5-7 years" -> 5). null if the ad states no number.
 
 Return a JSON array with one object per ad, in the same order.
 
@@ -61,7 +89,14 @@ Return a JSON array with one object per ad, in the same order.
 
 
 def content_hash(title: str, description: str) -> str:
-    return hashlib.sha256(f"{title}\n{description}".encode()).hexdigest()
+    """Cache key = ad content + model + prompt version.
+
+    Keying on content alone would mean a prompt or model change silently reuses
+    stale extractions, so half the dataset would reflect the old prompt and the
+    eval score would describe neither.
+    """
+    payload = f"v{PROMPT_VERSION}|{MODEL}|{title}\n{description}"
+    return hashlib.sha256(payload.encode()).hexdigest()
 
 
 def load_cache() -> dict[str, dict]:

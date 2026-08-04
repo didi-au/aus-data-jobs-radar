@@ -92,6 +92,15 @@ a level rather than returning `unspecified`. That's a prompt problem, and it's e
 what the eval harness exists to surface. CI enforces floors via
 `scripts/check_eval_thresholds.py` — a prompt change that degrades accuracy fails the build.
 
+**Prompt v2 is written but not yet measured.** It replaces "judge from title and
+requirements" with explicit rules and an instruction to prefer `unspecified` over a
+guess. Whether that actually helps is unknown until it is re-run and scored — the
+free-tier daily quota was exhausted when it was written. The table above still reports
+**v1 numbers**, because reporting an unmeasured improvement would defeat the entire
+point of building an eval harness. The cache key includes the prompt version, so
+re-running regenerates every extraction under one consistent prompt rather than
+mixing versions.
+
 ---
 
 ## Running it
